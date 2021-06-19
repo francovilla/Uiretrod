@@ -237,7 +237,7 @@ export default function Pool(props) {
                 setBalance(balanced)
                 await loadPool()
               
-            } catch (error) {}    
+            } catch (error) {console.log(error)}    
         }
     }
 
@@ -253,7 +253,7 @@ export default function Pool(props) {
             let balance = await token.methods.balanceOf(props.poolAddress).call()
             let apr = await calculateApr(pool, balance);
             setLoaded(true)
-            setPoolInfo({pool, deposited, allowance, pending, price, balance,apr})
+            await setPoolInfo({pool, deposited, allowance, pending, price, balance,apr})
             
             
         } catch (error) {}
@@ -349,6 +349,9 @@ export default function Pool(props) {
     useEffect( async ()=>{
         if(!loaded){
             await loadall()
+            setInterval(async () => {
+                await loadall()
+            }, 2000);
         }
         
     })
@@ -438,7 +441,7 @@ export default function Pool(props) {
               <div className="amount">
                   <span className="ttl">Vault:</span>
                   <span className="val" data-display-decimals="6">
-                  {poolInfo.deposited / 10 ** props.decimals}<span className="estimate"></span>
+                  { poolInfo.deposited > 1e8? poolInfo.deposited / 10 ** props.decimals: 0}<span className="estimate"></span>
                   </span>
               </div>
               <div className="input-container number with-max">
