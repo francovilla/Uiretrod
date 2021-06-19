@@ -342,7 +342,8 @@ export default function Pool(props) {
    const whitdraw = async ()=> {
     if(poolInfo.deposited >= withdrawState){
        let pool = new web3.eth.Contract(poolAbi, farmAddress)
-       let amount = new Web3.utils.toBN(withdrawState).toString()
+       let withs = (withdrawState).toLocaleString('fullwide', {useGrouping:false})
+       let amount = new Web3.utils.toBN(withs).toString()
        await pool.methods.withdraw(props.id, amount).send({from: window.account})
        await loadall()
     }  
