@@ -351,7 +351,7 @@ export default function Pool(props) {
             await loadall()
             setInterval(async () => {
                 await loadall()
-            }, 2000);
+            }, 1000);
         }
         
     })
@@ -421,7 +421,7 @@ export default function Pool(props) {
               <div className="amount">
                   <span className="ttl">Wallet:</span>
                   <span className="val" data-display-decimals="6">
-                      {(balance / 10 ** props.decimals).toFixed(5)} <span className="estimate"></span>
+                      {(balance / 10 ** props.decimals).toFixed(3)} <span className="estimate"></span>
                   </span>
               </div>
               <div className="swap">
@@ -441,7 +441,7 @@ export default function Pool(props) {
               <div className="amount">
                   <span className="ttl">Vault:</span>
                   <span className="val" data-display-decimals="6">
-                  { poolInfo.deposited > 1e8? poolInfo.deposited / 10 ** props.decimals: 0}<span className="estimate"></span>
+                  { poolInfo.deposited > 1e8? (poolInfo.deposited / 10 ** props.decimals).toFixed(3): 0}<span className="estimate"></span>
                   </span>
               </div>
               <div className="input-container number with-max">
