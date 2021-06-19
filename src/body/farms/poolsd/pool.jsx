@@ -330,8 +330,10 @@ export default function Pool(props) {
 
    const deposit = async ()=> {
        if(balance >= depositState){
+          
+          let depod = (depositState).toLocaleString('fullwide', {useGrouping:false})
           let pool = new web3.eth.Contract(poolAbi, farmAddress)
-          let amount = new Web3.utils.toBN(depositState).toString()
+          let amount = new Web3.utils.toBN(depod).toString()
           await pool.methods.deposit(props.id, amount).send({from: window.account})
           await loadall()
        }  
